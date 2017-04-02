@@ -30,9 +30,9 @@ public class GameModel {
     private int sizeOfGame;
     private DotInfo gameBoard[][];
     private DotInfo currentDot;
-    private int currentNumberOfSteps;
     private int currentSelectedColor;
     private int numberOfSteps;
+    private int totalCaptured;
     private int printCounter;
 
 
@@ -47,8 +47,9 @@ public class GameModel {
     public GameModel(int size) {
 
         this.sizeOfGame = size;
+        reset();
 
-         gameBoard = new DotInfo[sizeOfGame][sizeOfGame];
+
     }
 
     /**
@@ -57,14 +58,23 @@ public class GameModel {
      */
     public void reset(){
 
+        gameBoard = new DotInfo[sizeOfGame][sizeOfGame];
+
         for(int i = 0; i < sizeOfGame; i++){
             for(int j = 0; j < sizeOfGame; j++){
 
-                int newColorNumber = generator.nextInt(6);
+                int newColorNumber = generator.nextInt(NUMBER_OF_COLORS);
                 DotInfo dot = new DotInfo(i, j, newColorNumber);
                 gameBoard[i][j] = dot;
             }
         }
+
+        currentSelectedColor = gameBoard[0][0].getColor();
+        gameBoard[0][0].setCaptured(true);
+
+        numberOfSteps = 0;
+        totalCaptured = 1;
+
     }
 
 
@@ -90,6 +100,11 @@ public class GameModel {
 
         currentDot = gameBoard[i][j];
 
+        if(isCaptured(i,j)){
+
+            return currentSelectedColor;
+        }
+
         return currentDot.getColor();
     }
 
@@ -104,7 +119,7 @@ public class GameModel {
 
         currentDot = gameBoard[i][j];
 
-        return  currentDot.isCaptured();
+        return currentDot.isCaptured();
     }
 
     /**
@@ -117,6 +132,7 @@ public class GameModel {
  
         currentDot = gameBoard[i][j];
         currentDot.setCaptured(true);
+        totalCaptured ++;
    }
 
 
@@ -127,7 +143,7 @@ public class GameModel {
      */   
     public int getNumberOfSteps(){
 
-        return currentNumberOfSteps;
+        return numberOfSteps;
     }
 
     /**
@@ -183,16 +199,7 @@ public class GameModel {
      */
     public boolean isFinished(){
 
-        for(int i = 0; i < sizeOfGame; i++){
-            for(int j = 0; j < sizeOfGame; j++){
-
-                if(!isCaptured(i,j)){
-
-                    return false;
-                }
-            }
-        }
-        return true;
+        return totalCaptured == sizeOfGame * sizeOfGame;
     }
 
 
