@@ -12,14 +12,8 @@ import java.awt.event.ActionEvent;
 
 public class GameController implements ActionListener {
 
-    private int sizeOfGame;
     private GameModel gameModel;
     private GameView gameView;
-    private GameStack gameStack;
-    private DotInfo horizontalAdjacentDot;
-    private DotInfo verticalAdjacentDot;
-    private DotInfo currentDot;
-
 
     /**
      * Constructor used for initializing the controller. It creates the game's view 
@@ -29,9 +23,10 @@ public class GameController implements ActionListener {
      */
     public GameController(int size) {
 
-        this.sizeOfGame = size;
         gameModel = new GameModel(size);
         gameView = new GameView(gameModel, this);
+        //flood();
+        gameView.update();
     }
 
     /**
@@ -40,7 +35,8 @@ public class GameController implements ActionListener {
     public void reset(){
 
         gameModel.reset();
-        gameModel.get(0,0).setCaptured(true);
+        //flood();
+        gameView.update();
     }
 
     /**
@@ -76,10 +72,10 @@ public class GameController implements ActionListener {
             gameModel.setCurrentSelectedColor(color);
             gameModel.step();
 
-            gameStack = new GameStack(sizeOfGame);
+            GameStack gameStack = new GameStack(gameModel.getSize() * gameModel.getSize());
 
-            for (int i = 0; i < sizeOfGame; i++) {
-                for (int j = 0; j < sizeOfGame; j++) {
+            for (int i = 0; i < gameModel.getSize(); i++) {
+                for (int j = 0; j < gameModel.getSize(); j++) {
 
                     if (gameModel.isCaptured(i, j)) {
 
@@ -90,24 +86,9 @@ public class GameController implements ActionListener {
 
             while (!gameStack.isEmpty()) {
 
-                currentDot = gameStack.pop();
 
                 //TODO need to fix this logic doesn't go to an arrayOutOfBounds error
 
-                    horizontalAdjacentDot = gameModel.get(currentDot.getX() + 1, currentDot.getY());
-                    verticalAdjacentDot = gameModel.get(currentDot.getX(), currentDot.getY() + 1);
-
-                    if (!horizontalAdjacentDot.isCaptured() && horizontalAdjacentDot.getColor() == color) {
-
-                        horizontalAdjacentDot.setCaptured(true);
-                        gameStack.push(horizontalAdjacentDot);
-                    }
-
-                    if (!verticalAdjacentDot.isCaptured() && verticalAdjacentDot.getColor() == color) {
-
-                        verticalAdjacentDot.setCaptured(true);
-                        gameStack.push(verticalAdjacentDot);
-                    }
 
             }
 

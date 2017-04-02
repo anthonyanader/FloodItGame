@@ -1,5 +1,4 @@
 import java.awt.*;
-
 import javax.swing.*;
 
 /**
@@ -13,6 +12,9 @@ public class GameView extends JFrame {
 
     private GameModel gameModel;
     private GameController gameController;
+    private DotButton dotBoard[][];
+
+    private JLabel score;
 
     /**
      * Constructor used for initializing the Frame
@@ -27,14 +29,33 @@ public class GameView extends JFrame {
         this.gameModel = model;
         this.gameController = gameController;
 
-
         setBackground(Color.white);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(new BorderLayout());
+
+        JPanel gamePanel = new JPanel();
+        gamePanel.setBackground(Color.white);
+        gamePanel.setLayout(new GridLayout(gameModel.getSize(), gameModel.getSize()));
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 20));
+        dotBoard = new DotButton[gameModel.getSize()][gameModel.getSize()];
+
+
+
+        for(int i = 0; i < gameModel.getSize(); i++){
+            for(int j = 0; j < gameModel.getSize(); j++){
+//                dotBoard[i][j] = new DotButton(i,j, gameModel.getColor(i,j),
+//                        (gameModel.getSize() < 26 ? DotButton.MEDIUM_SIZE : DotButton.SMALL_SIZE));
+                gamePanel.add(dotBoard[i][j]);
+            }
+        }
+
+        add(gamePanel, BorderLayout.CENTER);
 
         JButton quit = new JButton("Quit");
+        quit.setFocusPainted(false);
+
         JButton reset = new JButton("Reset");
+        reset.setFocusPainted(false);
 
         quit.addActionListener(gameController);
         reset.addActionListener(gameController);
