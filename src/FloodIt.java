@@ -19,9 +19,6 @@ public class FloodIt {
 
          GameController gameController = new GameController(10);
 
-         gameController.reset();
-         gameController.printBoard();
-         gameController.selectColor(2);
 
 
 
