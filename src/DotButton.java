@@ -1,6 +1,7 @@
-// ADD YOUR IMPORTS HERE
-
+import java.awt.*;
 import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
 
 /**
  * In the application <b>FloodIt</b>, a <b>DotButton</b> is a specialized color of
@@ -21,8 +22,17 @@ import javax.swing.*;
 
 public class DotButton extends JButton {
 
+        public static final int NUMBER_OF_SIZES = 3;
+        public static final int SMALL_SIZE = 0;
+        public static final int MEDIUM_SIZE = 1;
+        public static final int NORMAL_SIZE = 2;
 
-// ADD YOUR INSTANCE VARIABLES HERE
+        private static final ImageIcon[][] imageIcon = new ImageIcon[NUMBER_OF_SIZES][GameModel.NUMBER_OF_COLORS];
+
+        private int row;
+        private int column;
+        private int color;
+        private int iconSize;
 
 
     /**
@@ -36,7 +46,16 @@ public class DotButton extends JButton {
 
     public DotButton(int row, int column, int color, int iconSize) {
 
-// ADD YOUR CODE HERE
+        this.row = row;
+        this.column = column;
+        this.color = color;
+        this.iconSize = iconSize;
+
+        setBackground(Color.WHITE);
+        setIcon(getImageIcon());
+        Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+        setBorder(emptyBorder);
+        setBorderPainted(false);
 
    }
 
@@ -49,11 +68,9 @@ public class DotButton extends JButton {
      */
     public DotButton(int color, int iconSize) {
 
-// ADD YOUR CODE HERE
+        this(-1,-1,color,iconSize);
 
     }
-
-
 
     /**
      * Changes the cell color of this cell. The image is updated accordingly.
@@ -63,8 +80,8 @@ public class DotButton extends JButton {
 
     public void setColor(int color) {
 
-// ADD YOUR CODE HERE
-
+        this.color = color;
+        setIcon(getImageIcon());
    }
 
     /**
@@ -74,7 +91,7 @@ public class DotButton extends JButton {
      */
     public int getColor(){
 
-// ADD YOUR CODE HERE
+        return color;
 
     }
 
@@ -86,7 +103,7 @@ public class DotButton extends JButton {
 
     public int getRow() {
 
-// ADD YOUR CODE HERE
+        return row;
 
     }
 
@@ -98,12 +115,41 @@ public class DotButton extends JButton {
 
     public int getColumn() {
 
-// ADD YOUR CODE HERE
+        return column;
 
     }
 
 
-// ADD YOUR PRIVATE METHODS HERE (IF USING ANY)
+    private ImageIcon getImageIcon(){
 
+        String directory = (iconSize == SMALL_SIZE ? "S": (iconSize == MEDIUM_SIZE ? "M" : "N"));
 
+        if (imageIcon[iconSize][color] == null) {
+            imageIcon[iconSize][color] = new ImageIcon("data/" + directory + "/ball-" + Integer.toString(color) + ".png");
+        }
+        return imageIcon[iconSize][color];
+
+//        String letterSize;
+//
+//        if(iconSize == SMALL_SIZE){
+//
+//            letterSize = "S";
+//
+//        } else if (iconSize == MEDIUM_SIZE){
+//
+//            letterSize = "M";
+//
+//        } else {
+//
+//            letterSize = "N";
+//        }
+//
+//        if (imageIcon[iconSize][color] == null) {
+//
+//            imageIcon[iconSize][color] = new ImageIcon("data/" + letterSize + "/ball-" + Integer.toString(color) + ".png");
+//        }
+//
+//        return imageIcon[iconSize][color];
+
+    }
 }
