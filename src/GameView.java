@@ -15,7 +15,6 @@ public class GameView extends JFrame {
     private DotButton dotBoard[][];
 
     private JLabel score;
-
     /**
      * Constructor used for initializing the Frame
      *
@@ -24,7 +23,6 @@ public class GameView extends JFrame {
      */
 
     public GameView(GameModel model, GameController gameController) {
-
         super("FloodIt");
         this.gameModel = model;
         this.gameController = gameController;
@@ -43,8 +41,8 @@ public class GameView extends JFrame {
 
         for(int i = 0; i < gameModel.getSize(); i++){
             for(int j = 0; j < gameModel.getSize(); j++){
-//                dotBoard[i][j] = new DotButton(i,j, gameModel.getColor(i,j),
-//                        (gameModel.getSize() < 26 ? DotButton.MEDIUM_SIZE : DotButton.SMALL_SIZE));
+                dotBoard[i][j] = new DotButton(i,j, gameModel.getColor(i,j),
+                        (gameModel.getSize() < 26 ? DotButton.MEDIUM_SIZE : DotButton.SMALL_SIZE));
                 gamePanel.add(dotBoard[i][j]);
             }
         }
@@ -63,12 +61,55 @@ public class GameView extends JFrame {
         quit.setActionCommand("Quit");
         reset.setActionCommand("Reset");
 
-        JPanel bottomPanel = new JPanel(new FlowLayout());
+        JPanel selectPanel = new JPanel();
+        selectPanel.setBackground(Color.WHITE);
+        selectPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY,3,true));
 
-        bottomPanel.add(reset);
-        bottomPanel.add(quit);
+        DotButton button = new DotButton(0, 0, gameModel.COLOR_0, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
 
-        add(bottomPanel, BorderLayout.SOUTH);
+        button = new DotButton(0, 0, gameModel.COLOR_1, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
+
+        button = new DotButton(0, 0, gameModel.COLOR_2, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
+
+        button = new DotButton(0, 0, gameModel.COLOR_3, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
+
+        button = new DotButton(0, 0, gameModel.COLOR_4, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
+
+        button = new DotButton(0, 0, gameModel.COLOR_5, DotButton.NORMAL_SIZE);
+        button.addActionListener(gameController);
+        selectPanel.add(button);
+
+
+        score = new JLabel();
+
+        JPanel controlPanel = new JPanel();
+        controlPanel.setBackground(Color.WHITE);
+
+        controlPanel.add(reset);
+        controlPanel.add(quit);
+        controlPanel.add(score);
+
+
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new GridLayout(2,1));
+        southPanel.add(selectPanel);
+        southPanel.add(controlPanel);
+        southPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 0, 10));
+        southPanel.setBackground(Color.WHITE);
+        add(southPanel, BorderLayout.SOUTH);
+
+        pack();
+        setVisible(true);
     }
 
     /**
@@ -77,7 +118,13 @@ public class GameView extends JFrame {
 
     public void update(){
 
-// ADD YOUR CODE HERE
+        for(int i = 0; i < gameModel.getSize(); i++){
+            for(int j = 0; j < gameModel.getSize(); j++){
+                dotBoard[i][j].setColor(gameModel.getColor(i,j));
+            }
+        }
+        score.setText("Number of steps: " + gameModel.getNumberOfSteps());
+        repaint();
 
     }
 
