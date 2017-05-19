@@ -127,29 +127,7 @@ public class DotButton extends JButton {
         if (imageIcon[iconSize][color] == null) {
             imageIcon[iconSize][color] = new ImageIcon("data/" + directory + "/ball-" + Integer.toString(color) + ".png");
         }
+
         return imageIcon[iconSize][color];
-
-//        String letterSize;
-//
-//        if(iconSize == SMALL_SIZE){
-//
-//            letterSize = "S";
-//
-//        } else if (iconSize == MEDIUM_SIZE){
-//
-//            letterSize = "M";
-//
-//        } else {
-//
-//            letterSize = "N";
-//        }
-//
-//        if (imageIcon[iconSize][color] == null) {
-//
-//            imageIcon[iconSize][color] = new ImageIcon("data/" + letterSize + "/ball-" + Integer.toString(color) + ".png");
-//        }
-//
-//        return imageIcon[iconSize][color];
-
     }
 }
