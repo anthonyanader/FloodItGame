@@ -17,13 +17,20 @@ public class FloodIt {
      */
      public static void main(String[] args) {
 
-         GameController gameController = new GameController(10);
-
-
-
-
-
-   }
-
-
+         int size = 10;
+         //int size = 17;
+         //int size = 22;
+         if (args.length == 1) {
+             try{
+                 size = Integer.parseInt(args[0]);
+                 if(size < 10){
+                     System.out.println("Invalid argument, switching to default");
+                     size = 12;
+                 }
+             } catch(NumberFormatException e){
+                 System.out.println("Invalid argument, switching to default");
+             }
+         }
+         GameController game = new GameController(size);
+     }
 }
