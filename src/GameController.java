@@ -1,5 +1,8 @@
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+import javax.swing.*;
 
 /**
  * The class <b>GameController</b> is the controller of the game. It has a method
@@ -47,13 +50,18 @@ public class GameController implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getActionCommand() == "Reset"){
+        if (e.getSource() instanceof DotButton) {
+            selectColor(((DotButton)(e.getSource())).getColor());
 
-            reset();
+        } else if (e.getSource() instanceof JButton) {
+            JButton clicked = (JButton)(e.getSource());
 
-        }else if(e.getActionCommand() == "Quit") {
+            if (clicked.getText().equals("Quit")) {
+                System.exit(0);
 
-            System.exit(0);
+            } else if (clicked.getText().equals("Reset")){
+                reset();
+            }
         }
     }
 
