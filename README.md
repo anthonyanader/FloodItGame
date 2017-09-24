@@ -1,2 +1,8 @@
-# game-flood-it
-Project: Game | Built Spring 2017 for learning and applying data structures in Java. Java was used extensively for the majority of our monolithic back-end infrastructure at my previous employment.  I wanted to get a deeper understanding and study the intricacies of the language.
+# Game: Flood-It
+
+---
+![Flood-It Game](http://res.cloudinary.com/anthonyanader/image/upload/v1506262918/Flood-It-Color-Select_tjw9u3.png)
+
+##Objective
+
+A player has to **flood** the whole game-board with the *least* amount of steps possible to win the game.
